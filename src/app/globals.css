@@ -1,33 +1,54 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* styles.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer utilities {
+  .lines {
+    @apply absolute top-0 left-0 w-full h-full flex justify-evenly z-0 pointer-events-none;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  .line-1,
+  .line-2,
+  .line-3,
+  .line-4 {
+    @apply w-[1px] min-h-full relative;
+
+    @apply bg-gray-600; /* Replace with the desired background color class */
+  }
+
+  .shapes {
+    @apply absolute h-full p-40 top-0 left-1/2 transform -translate-x-1/2 flex flex-col justify-between;
+  }
+
+  .lines .circle {
+    @apply w-4 h-4 rounded-full border border-gray-600 bg-black; /* Replace with the desired border and background color classes */
+  }
+
+  .lines .x-shape {
+    @apply relative w-4 h-4;
+  }
+
+  .lines .x-shape::after,
+  .lines .x-shape::before {
+    @apply absolute left-1/2 transform -translate-x-1/2 w-4 h-full bg-gray-500 border-4 border-gray-500 rounded; /* Replace with the desired background and border color classes */
+  }
+
+  .lines .x-shape::after {
+    @apply rotate-45;
+  }
+
+  .lines .x-shape::before {
+    @apply rotate--45;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+@layer components {
+  .shapes-style {
+    @apply h-full;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .shape-style {
+    @apply border-color[theme(--color-border)];
   }
 }
