@@ -8,26 +8,14 @@ import { cards } from "./utils/cards";
 import Fullpage from "./components/Fullpage";
 import TextSection from "./components/TextSection";
 import ZoomSection from "./components/ZoomSection";
+import CardContainer from "./components/CardContainer";
 
 export default function Home() {
   return (
     <div className="z-10">
       <Header />
       <main className="w-full">
-        <SectionLayout>
-        <HorizontalWrapper height="40rem" direction={-1400}>
-            <div className="grid grid-cols-5 gap-4">
-              {cards.map((card, index) => (
-                <Card
-                  key={index}
-                  title={card.title}
-                  description={card.description}
-                  image={card.image}
-                />
-              ))}
-            </div>
-          </HorizontalWrapper>
-        </SectionLayout>
+        <CardContainer />
 
         <Fullpage />
 
