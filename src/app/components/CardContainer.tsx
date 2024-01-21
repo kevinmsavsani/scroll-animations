@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Card from "./Card";
+import Image from "next/image";
 import { cards } from "../utils/cards";
 import clsx from "clsx";
 
@@ -13,7 +13,7 @@ const CardContainer = () => {
         const container = scrollRef.current;
         const cardWidth = container.clientWidth / 5;
         const centerIndex = Math.round(container.scrollLeft / cardWidth);
-        setHighlightedIndex(centerIndex + 3);
+        setHighlightedIndex(centerIndex+3);
       }
     };
 
@@ -35,7 +35,7 @@ const CardContainer = () => {
   return (
     <div
       ref={scrollRef}
-      className="mx-auto w-[720px] h-[500px] mt-40 overflow-x-auto flex items-center relative"
+      className="mx-auto w-[650px] mt-40 overflow-x-auto flex items-center relative"
     >
       <div
         className="flex relative"
@@ -55,17 +55,20 @@ const CardContainer = () => {
               key={index}
               className={clsx([
                 "w-72 transform transition-transform duration-300",
-                index === highlightedIndex && "scale-110 skew-y-0 z-10",
-                index > highlightedIndex && `scale-90 -skew-y-6 z-[${zIndex}] ml-[-120px] mr-0`,
-                index < highlightedIndex && `scale-90 skew-y-6 z-[${zIndex}] mr-[-120px] ml-0`,
+                index === highlightedIndex && "skew-y-0 z-10",
+                index > highlightedIndex &&
+                  `scale-75 -skew-y-6 z-[${zIndex}] ml-[-150px] mr-0`,
+                index < highlightedIndex &&
+                  `scale-75 skew-y-6 z-[${zIndex}] mr-[-150px] ml-0`,
               ])}
             >
-              <Card
-                title={card.title}
-                description={card.description}
-                image={card.image}
-                border={false}
-              />
+              <div className="relative w-full h-0 pb-[100%]">
+                <Image
+                  src={card.image}
+                  alt="image"
+                  className="absolute inset-0 w-full h-full object-cover object-center rounded"
+                />
+              </div>
             </div>
           );
         })}
