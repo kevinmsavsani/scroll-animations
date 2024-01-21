@@ -4,17 +4,17 @@ import { cards } from "../utils/cards";
 import clsx from "clsx";
 
 const CardContainer = () => {
-  const [highlightedIndex, setHighlightedIndex] = useState(3);
+  const [highlightedIndex, setHighlightedIndex] = useState(2); // Initially highlighting the middle image
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (scrollRef.current) {
-        const container = scrollRef.current;
-        const cardWidth = container.clientWidth / 5;
-        const centerIndex = Math.round(container.scrollLeft / cardWidth);
-        setHighlightedIndex(centerIndex+3);
-      }
+      const numVisibleImages = 5;
+      const scrollPosition = scrollRef.current?.scrollLeft || 0;
+      const middleIndex = Math.round(scrollPosition / 72) + Math.floor(numVisibleImages / 2);
+
+      // Update the highlighted index
+      setHighlightedIndex(middleIndex);
     };
 
     // Attach the scroll event listener
