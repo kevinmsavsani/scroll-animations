@@ -9,6 +9,7 @@ import Fullpage from "./components/Fullpage";
 import TextSection from "./components/TextSection";
 import ZoomSection from "./components/ZoomSection";
 import CardContainer from "./components/CardContainer";
+import CardContainerBlur from "./components/CardContainer-Blur";
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
       <Header />
       <main className="w-full">
         <CardContainer />
-
+        <CardContainerBlur />
         <Fullpage />
 
         <SectionLayout>
