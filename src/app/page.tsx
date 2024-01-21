@@ -20,9 +20,9 @@ export default function Home() {
         <Fullpage />
 
         <SectionLayout>
-          <HorizontalWrapper height="40rem" direction={1400}>
-            <div className="grid grid-cols-5 gap-4" style={{ right: 0 }}>
-              {cards.map((card, index) => (
+          <HorizontalWrapper>
+            <div className="absolute grid grid-cols-5 gap-4 w-[2500px]">
+              {cards.slice(0, 5).map((card, index) => (
                 <Card
                   key={index}
                   title={card.title}
