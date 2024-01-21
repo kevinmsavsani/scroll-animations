@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import Card from "./Card"; // Import your Card component
-import { cards } from "../utils/cards"; // Assuming you have a file with cards data
+import Card from "./Card";
+import { cards } from "../utils/cards";
+import clsx from "clsx";
 
 const CardContainer = () => {
-  const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const [highlightedIndex, setHighlightedIndex] = useState(3);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       if (scrollRef.current) {
         const container = scrollRef.current;
-        const cardWidth = container.clientWidth / 5; // Assuming you want to display 5 cards at a time
-
-        // Calculate the index of the card at the center of the scroll
+        const cardWidth = container.clientWidth / 5;
         const centerIndex = Math.round(container.scrollLeft / cardWidth);
-        setHighlightedIndex(centerIndex);
+        setHighlightedIndex(centerIndex + 3);
       }
     };
 
@@ -36,29 +35,40 @@ const CardContainer = () => {
   return (
     <div
       ref={scrollRef}
-      className="mx-auto w-full h-[500px] border mt-40 border-gray-600 overflow-x-auto flex items-center"
+      className="mx-auto w-[720px] h-[500px] mt-40 overflow-x-auto flex items-center relative"
     >
       <div
-        className="flex"
+        className="flex relative"
         style={{
-          transform: `translateX(-${highlightedIndex * 72}px)`, // Assuming 72 is the width of each card
+          transform: `translateX(-${highlightedIndex * 72}px)`,
           transition: "transform 0.3s ease",
         }}
       >
-        {cards.map((card, index) => (
-          <div
-            key={index}
-            className={`w-72 mx-2 ${
-              index === highlightedIndex ? "opacity-100" : "opacity-50"
-            } transition-opacity duration-300`}
-          >
-            <Card
-              title={card.title}
-              description={card.description}
-              image={card.image}
-            />
-          </div>
-        ))}
+        {cards.map((card, index) => {
+          const zIndex =
+            index === highlightedIndex
+              ? 10
+              : 10 - Math.abs(highlightedIndex - index);
+
+          return (
+            <div
+              key={index}
+              className={clsx([
+                "w-72 transform transition-transform duration-300",
+                index === highlightedIndex && "scale-110 skew-y-0 z-10",
+                index > highlightedIndex && `scale-90 -skew-y-6 z-[${zIndex}] ml-[-120px] mr-0`,
+                index < highlightedIndex && `scale-90 skew-y-6 z-[${zIndex}] mr-[-120px] ml-0`,
+              ])}
+            >
+              <Card
+                title={card.title}
+                description={card.description}
+                image={card.image}
+                border={false}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

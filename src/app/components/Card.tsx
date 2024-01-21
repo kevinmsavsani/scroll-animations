@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 
@@ -5,11 +6,17 @@ interface CardProps {
   title: string;
   description?: string;
   image?: any;
+  border?: boolean;
 }
 
-function Card({ title, description, image }: CardProps) {
+function Card({ title, description, image, border = true }: CardProps) {
   return (
-    <div className="relative w-full h-full p-6 rounded border border-gray-700 transition duration-300 ease-in-out hover:transform hover:scale-105">
+    <div
+      className={clsx([
+        "relative w-full h-full  rounded   transition duration-300 ease-in-out hover:transform hover:scale-105",
+        border && "p-6 border border-gray-700",
+      ])}
+    >
       <p className="absolute top-6 right-6 m-2 z-5 bg-blue-800 text-white px-2 py-1 rounded font-semibold text-sm">
         New
       </p>
